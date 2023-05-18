@@ -7,13 +7,25 @@ from random import randint
 from math import *
 from time import *
 
+'''
+Goal: Create a shooter game with multiple waves with different enemies with a health bar and a wave counter 
+        Also have a start screen and a game over menu
+
+Struggles: Got too confused wtih different waves and enemies because I had to create different enemies and differnt 
+            sizes and i didn't know how to make more waves
+
+'''
 # Defining a vector
 vec = pg.math.Vector2
 
 # game settings 
+# How long it is
 WIDTH = 800
+# How tall it is
 HEIGHT = 500
+# Frames per second 
 FPS = 30
+# Open menu
 menuopen = False
 # player friction
 player_fric = -0.2
@@ -55,6 +67,7 @@ GOLD = (168, 149, 50)
 
 # text drawing
 def draw_text(text, size, color, x, y):
+        # Font 
         font_name = pg.font.match_font('calibri')
         font = pg.font.Font(font_name, size)
         text_surface = font.render(text, True, color)
@@ -83,30 +96,29 @@ class Player(Sprite):
     def controls(self):
         global rt
         keys = pg.key.get_pressed()
+        # left
         if keys[pg.K_a]:
             self.acc.x = -3
-            self.direct = 3            
+            self.direct = 3  
+        # right   
         if keys[pg.K_d]:
             self.acc.x = 3
             self.direct = 1
+        # up
         if keys[pg.K_w]:
             self.acc.y = -3  
-            self.direct = 0            
+            self.direct = 0   
+        # Down
         if keys[pg.K_s]:
             self.acc.y = 3
             self.direct = 2  
+        # Shoot
         if keys[pg.K_SPACE]:
             self.shoot()
         if keys[pg.K_1]:
             self.gt = 0
             rt = 1
-        if keys[pg.K_2]:
-            self.gt = 1
-            rt = 4
-        if keys[pg.K_3]:
-            self.gt = 2
-            rt = 1/2
-            
+
     # moves the player and the visual rect
     def movement(self):
         self.acc += self.vel * player_fric
